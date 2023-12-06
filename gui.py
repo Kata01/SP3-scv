@@ -369,4 +369,3 @@ class VideoConverterGUI:
 
     def show_error_window(self, error_message):
         messagebox.showerror("Error", error_message)
-
