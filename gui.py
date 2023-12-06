@@ -13,6 +13,7 @@ SCRIPT_DIR = Path(__file__).parent
 OUTPUT_PATH = SCRIPT_DIR / "output_folder"
 ASSETS_PATH = SCRIPT_DIR / "assets" / "frame0"
 
+
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
@@ -50,7 +51,8 @@ class VideoConverterGUI:
 
         # Button for browsing input video
         button_image_1 = PhotoImage(file=relative_to_assets("button_1.png"))
-        button_1 = Button(image=button_image_1, borderwidth=0, highlightthickness=0, command=self.browse_input, relief="flat")
+        button_1 = Button(image=button_image_1, borderwidth=0, highlightthickness=0, command=self.browse_input,
+                          relief="flat")
         button_1.place(x=410, y=79.4000244140625, width=16.0, height=15.200017929077148)
 
         # Output name
@@ -79,7 +81,8 @@ class VideoConverterGUI:
         )
 
         # Codec and resolution
-        self.canvas.create_text(57.0, 378.0, anchor="nw", text="Change resolution and codec", fill="#FFFFFF", font=("Helvetica", 10, "bold"))
+        self.canvas.create_text(57.0, 378.0, anchor="nw", text="Change resolution and codec", fill="#FFFFFF",
+                                font=("Helvetica", 10, "bold"))
 
         self.resolutions = ["1920x1080", "1280x720", "854x480", "360x240", "160x120"]
         self.codecs = ["vp8", "vp9", "libx265", "libaom-av1"]
@@ -121,7 +124,6 @@ class VideoConverterGUI:
             fill="#FFFFFF",
             font=("Helvetica 10 bold")
         )
-
 
         button_image_3 = PhotoImage(
             file=relative_to_assets("button_3.png"))
@@ -322,37 +324,56 @@ class VideoConverterGUI:
             self.show_error_window(str(e))
 
     def modify_resolution(self):
-        entered_resolution = self.entry_2.get()
-        output_file = self.entry_3.get()
-        width, height = map(int, entered_resolution.split('x'))
-        p2 = Converter(self.input_file)
-        p2.modify_resolution(output_file, width, height)
+        try:
+            entered_resolution = self.entry_2.get()
+            output_file = self.entry_3.get()
+            width, height = map(int, entered_resolution.split('x'))
+            p2 = Converter(self.input_file)
+            p2.modify_resolution(output_file, width, height)
+        except Exception as e:
+            self.show_error_window(f"Error in modify_resolution: {str(e)}")
 
     def change_chroma_subsampling(self):
-        output_file = self.entry_3.get()
-        subsampling = self.entry_4.get()
-        p2 = Converter(self.input_file)
-        p2.change_chroma_subsampling(output_file, subsampling)
+        try:
+            output_file = self.entry_3.get()
+            subsampling = self.entry_4.get()
+            p2 = Converter(self.input_file)
+            p2.change_chroma_subsampling(output_file, subsampling)
+        except Exception as e:
+            self.show_error_window(f"Error in change_chroma_subsampling: {str(e)}")
 
     def cut_and_analyze(self):
-        output_file = self.entry_3.get()
-        s2_instance = s2(self.input_file)
-        s2_instance.cut_and_analyze_video(output_file)
+        try:
+            output_file = self.entry_3.get()
+            s2_instance = s2(self.input_file)
+            s2_instance.cut_and_analyze_video(output_file)
+        except Exception as e:
+            self.show_error_window(f"Error in cut_and_analyze: {str(e)}")
 
     def extractYUV(self):
-        output_file = self.entry_3.get()
-        yuv_histogram_processor = ExtractYuvHistogram(self.input_file, output_file)
-        yuv_histogram_processor.extract_yuv_histogram()
+        try:
+            output_file = self.entry_3.get()
+            yuv_histogram_processor = ExtractYuvHistogram(self.input_file, output_file)
+            yuv_histogram_processor.extract_yuv_histogram()
+        except Exception as e:
+            self.show_error_window(f"Error in extractYUV: {str(e)}")
 
     def bw(self):
-        output_file = self.entry_3.get()
-        black_and_white_processor = BlackAndWhite()
-        black_and_white_processor.image_to_bw(self.input_file, output_file)
+        try:
+            output_file = self.entry_3.get()
+            black_and_white_processor = BlackAndWhite()
+            black_and_white_processor.image_to_bw(self.input_file, output_file)
+        except Exception as e:
+            self.show_error_window(f"Error in bw: {str(e)}")
 
     def convert_mp2(self):
-        output_file = self.entry_3.get()
-        converter = Converter(self.input_file)
-        converter.convert_to_mp2(output_file)
+        try:
+            output_file = self.entry_3.get()
+            converter = Converter(self.input_file)
+            converter.convert_to_mp2(output_file)
+        except Exception as e:
+            self.show_error_window(f"Error in convert_mp2: {str(e)}")
+
     def show_progress_bar(self):
         self.progress_window = Tk()
         self.progress_window.title("Converting Video")
