@@ -1,12 +1,12 @@
 import subprocess
-import os
+
 
 class VideoConverter:
     def __init__(self, input_file):
         self.input_file = input_file
 
     def convert_resolution(self, width, height, codec):
-        output_file = f'{width}x{height}_{codec}_{os.path.splitext(os.path.basename(self.input_file))[0]}'
+        output_file = f'{width}x{height}_{codec}_BBB'
 
         container_format = 'mkv'
 
@@ -23,6 +23,8 @@ class VideoConverter:
         ])
 
         print(f'Conversion to {width}x{height} with {codec} complete. Output file: {output_file}.{container_format}')
+        output_vid = f'{output_file}.{container_format}'
+        return output_vid
 
     def convert(self):
         resolutions = [(1280, 720), (854, 480), (360, 240), (160, 120)]
@@ -45,6 +47,7 @@ class VideoConverter:
         self.convert_resolution(chosen_resolution[0], chosen_resolution[1], chosen_codec)
 
 
-input_video = 'BBB.mp4'
-converter = VideoConverter(input_video)
-converter.convert()
+if __name__ == "__main__":
+    input_video = 'BBB.mp4'
+    converter = VideoConverter(input_video)
+    converter.convert()
