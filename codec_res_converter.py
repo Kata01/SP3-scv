@@ -1,7 +1,7 @@
 import subprocess
 
 
-class VideoConverter:
+class CodecConverter:
     def __init__(self, input_file):
         self.input_file = input_file
 
@@ -18,7 +18,7 @@ class VideoConverter:
             '-i', self.input_file,
             '-vf', f'scale={width}:{height}',
             '-c:v', codec,
-            f'-c:a', 'libvorbis',
+            '-strict', '-2',
             f'{output_file}.{container_format}'
         ])
 
@@ -49,5 +49,5 @@ class VideoConverter:
 
 if __name__ == "__main__":
     input_video = 'BBB.mp4'
-    converter = VideoConverter(input_video)
+    converter = CodecConverter(input_video)
     converter.convert()

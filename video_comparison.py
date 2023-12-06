@@ -1,10 +1,10 @@
 import subprocess
-from converter import VideoConverter
+from codec_res_converter import CodecConverter
 # COMENTARIO COMPARATIVO ABAJO
 
 
 def compare_codecs(input_video):
-    converter = VideoConverter(input_video)
+    converter = CodecConverter(input_video)
     output1 = converter.convert_resolution(1920, 1080, 'vp9')
     output2 = converter.convert_resolution(1920, 1080, 'vp8')
 
@@ -28,8 +28,8 @@ def compare_codecs(input_video):
 # menor calidad respecto al video con codec vp9, los detalles se ven más difuminados y la definición es menor.
 # La diferencia se nota especialmente cuando hay contraste o transiciones de color (como el principio del vídeo donde
 # se pasa de oscuro a claro, o cuando hay movimiento como una ardilla oscura sobre un fondo claro)  donde el vp8 muestra
-# claros signos de compresión. La nitidez y claridad es inferior en el codec vp8 durante todo el video.
-# Con el codec vp9 las transiciones de color son suaves y la imagen se ve mas nítida en todo momento, se nota que la
+# claros signos de compresión. La nitidez y claridad es inferior en el codec vp8 durante to.do el video.
+# Con el codec vp9 las transiciones de color son suaves y la imagen se ve mas nítida en to.do momento, se nota que la
 # compresión de este codec es más eficiente que la del vp8.
 # Hay que tener en cuenta que el video comparativo está en un contenedor codificado en vp9, por lo que el video con
 # codec vp8 ha sido recodificado a vp9 lo cual le puede haber supuesto una pérdida adicional de calidad, aunque también
