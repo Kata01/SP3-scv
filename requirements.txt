@@ -3,3 +3,4 @@ Pillow==8.3.2
 ttkthemes==3.2.2
 numpy
 scipy
+ffmpeg==1.4
